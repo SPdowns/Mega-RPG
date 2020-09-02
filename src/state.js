@@ -16,3 +16,24 @@ export const changeState = (prop) => {
     });
   };
 };
+
+export const addAttribute = (attributeName) => {
+  return (attributeValue) => {
+    return changeState(attributeName)(attributeValue);
+  };
+};
+//character(addAttribute("strength")(10))
+
+// export const addStrength = (value) => {
+//   return changeState("strength")(value);
+// };
+
+//character(addStrength(10));
+export const addAbility = (ability) => {
+  return (state) => { 
+    return ({
+      ...state,
+      ...ability
+    });
+  };
+};
