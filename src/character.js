@@ -24,3 +24,23 @@ export const addAttribute = (attributeName) => {
 // };
 
 //character(addStrength(10));
+export const addAbility = (ability) => {
+  return (state) => { 
+    return ({
+      ...state,
+      ...ability
+    });
+  };
+};
+
+// character(addAbility(attack()))
+// character().attack() => returns damage amount
+
+export const attack = () => {
+  const obj = {
+    attack: function() {
+      return 10;
+    }
+  };
+  return obj;
+};

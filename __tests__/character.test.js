@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { characterCreate, addAttribute } from './../src/character';
+import { characterCreate, addAttribute, addAbility, attack } from './../src/character';
 
 describe("character creation", ()=>{
   test("should be able to create a character", ()=>{
@@ -33,5 +33,12 @@ describe("character creation", ()=>{
     newCharacter(addAttribute("strength")(10));
     newCharacter(addAttribute("strength")(-5));
     expect(newCharacter().strength).toBe(5);
+  });
+
+  test("should be able to attach abilities to a character", ()=>{
+    const newCharacter = characterCreate("Sudo");
+    newCharacter(addAttribute("strength")(10));
+    newCharacter(addAbility(attack()));
+    expect(newCharacter().attack()).toBe(10);
   });
 });
