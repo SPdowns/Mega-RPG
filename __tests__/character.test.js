@@ -20,4 +20,11 @@ describe("character creation", ()=>{
     expect(newCharacter().strength).toBe(10);
     expect(newCharacter().intelligence).toBe(100000);
   });
+
+  test("should be able to increase a given attribute", ()=>{
+    const newCharacter = characterCreate("Sudo");
+    newCharacter(addAttribute("strength")(10));
+    newCharacter(addAttribute("strength")(10));
+    expect(newCharacter().strength).toBe(20);
+  });
 });
