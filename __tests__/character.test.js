@@ -27,4 +27,11 @@ describe("character creation", ()=>{
     newCharacter(addAttribute("strength")(10));
     expect(newCharacter().strength).toBe(20);
   });
+
+  test("should be able to decrese a given attribute", ()=>{
+    const newCharacter = characterCreate("Sudo");
+    newCharacter(addAttribute("strength")(10));
+    newCharacter(addAttribute("strength")(-5));
+    expect(newCharacter().strength).toBe(5);
+  });
 });
