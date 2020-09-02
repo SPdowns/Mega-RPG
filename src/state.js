@@ -17,6 +17,15 @@ export const changeState = (prop) => {
   };
 };
 
+export const setState = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state,
+      [prop] : value
+    });
+  };
+};
+
 export const addAttribute = (attributeName) => {
   return (attributeValue) => {
     return changeState(attributeName)(attributeValue);

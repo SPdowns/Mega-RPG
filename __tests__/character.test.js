@@ -2,7 +2,7 @@
 import { characterCreate } from './../src/character';
 import { addAttribute, addAbility } from './../src/state';
 import { attack, fireball } from './../src/abilities';
-import { takeDamage, lifeDetector } from '../src/health';
+import { takeDamage, healDamage, lifeDetector, maxLifeCheck } from '../src/health';
 
 describe("character creation", ()=>{
   test("should be able to create a character", ()=>{
@@ -90,5 +90,25 @@ describe("character creation", ()=>{
   test('should not be able to kill something that isnt alive', () => {
     const wall = characterCreate("wall");
     expect(lifeDetector(wall())).toBe(false);
+  });
+
+  test('should be able to heal damage', ()=>{
+    const newCharacter = characterCreate("Sudo");
+    newCharacter(addAttribute("toughness")(10));
+    newCharacter(addAttribute("health")(newCharacter().toughness));
+    newCharacter(takeDamage(9));
+    newCharacter(healDamage(7));
+    newCharacter(maxLifeCheck(newCharacter()));
+    expect(newCharacter().health).toBe(8);
+  });
+
+  test('should not be able to heal above maximum hp', ()=>{
+    const newCharacter = characterCreate("Sudo");
+    newCharacter(addAttribute("toughness")(10));
+    newCharacter(addAttribute("health")(newCharacter().toughness));
+    newCharacter(takeDamage(9));
+    newCharacter(healDamage(200));
+    newCharacter(maxLifeCheck(newCharacter()));
+    expect(newCharacter().health).toBe(10);
   });
 });
