@@ -5,8 +5,8 @@ import './styles.css';
 import { characterCreate } from './character';
 import { addAttribute } from './state';
 
-const updateCharacterDisplay = (character) => {
-  $("#character-name").html(character.name);
+const updateCharacterDisplay = function(character) {
+  $("span#character-name").text(character.name);
   $("#health-display").html(character.health);
   $("#strength-display").html(character.strength);
   $("#toughness-display").html(character.toughness);
@@ -27,8 +27,8 @@ $(document).ready(function() {
     character(addAttribute("toughness")(toughness));
     character(addAttribute("intelligence")(intelligence));
     character(addAttribute("health")(toughness));
-
-    updateCharacterDisplay(character);
+  
+    updateCharacterDisplay(character());
     $("#character-creation").toggle();
     $("#battle-display").toggle();
   });
