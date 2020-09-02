@@ -12,6 +12,9 @@ _An application that plays an RPG, coded in functional JavaScript_
 
 | Spec | Input | Output |
 | :--- | :---: | ---: |
+| Program can create a character | User loads a new game | Character = {} |
+| Characters can have attributes | User assigns Strength 10 | Character = {Strength: 10} |
+| Characters can have abilities | None | Character = { Attack(), Strength: 10} |
 
 
 ## Setup/Installation Requirements
