@@ -5,6 +5,7 @@ import './styles.css';
 import { characterCreate } from './character';
 import { addAttribute } from './state';
 import { getRandomEnemy } from './enemies';
+import { takeDamage, lifeDetector } from './health';
 
 const updateCharacterDisplay = function(character) {
   $("#character-name").html(character.name);
@@ -22,10 +23,30 @@ const updateEnemyDisplay = function(enemy) {
   $("#enemy-intelligence-display").html(enemy.intelligence);
 };
 
+const enemyTurn = function(character, enemy) {
+  const damageDealt = enemy().attack();
+  character(takeDamage(damageDealt));
+  $('#enemy-turn-output').html(`<p>${enemy().name} did ${damageDealt} to you!</p>`);
+  if (!lifeDetector(character())) {
+    alert("YOU LOSE!");
+    $("#character-creation").toggle();
+    $("#battle-display").toggle();
+  }
+};
+
 const startBattle = function(character) {
   const enemy = getRandomEnemy();
   updateCharacterDisplay(character);
   updateEnemyDisplay(enemy());
+  $('#attack-button').off();
+  $('#attack-button').click(function(event) {
+    event.preventDefault();
+    enemy(takeDamage(character().attack()));
+    enemyTurn(character, enemy);
+    if (!lifeDetector(enemy())) {
+      startBattle(character);
+    }
+  });
 };
 
 $(document).ready(function() {
