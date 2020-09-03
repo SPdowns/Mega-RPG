@@ -37,7 +37,7 @@ describe("enemies", ()=>{
 
   test("should be able to get a random enemy", ()=>{
     const randomEnemy = getRandomEnemy();
-    console.log(randomEnemy);
     expect(randomEnemy().name).toBeDefined();
+    expect(randomEnemy().name.match(/[a-z]/i)).not.toBeNull();
   });
 });

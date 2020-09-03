@@ -4,13 +4,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { characterCreate } from './character';
 import { addAttribute } from './state';
+import { getRandomEnemy } from './enemies';
 
 const updateCharacterDisplay = function(character) {
-  $("span#character-name").text(character.name);
+  $("#character-name").html(character.name);
   $("#health-display").html(character.health);
   $("#strength-display").html(character.strength);
   $("#toughness-display").html(character.toughness);
   $("#intelligence-display").html(character.intelligence);
+};
+
+const updateEnemyDisplay = function(enemy) {
+  $("#enemy-name").html(enemy.name);
+  $("#enemy-health-display").html(enemy.health);
+  $("#enemy-strength-display").html(enemy.strength);
+  $("#enemy-toughness-display").html(enemy.toughness);
+  $("#enemy-intelligence-display").html(enemy.intelligence);
+};
+
+const startBattle = function(character) {
+  const enemy = getRandomEnemy();
+  updateCharacterDisplay(character);
+  updateEnemyDisplay(enemy());
 };
 
 $(document).ready(function() {
@@ -31,5 +46,6 @@ $(document).ready(function() {
     updateCharacterDisplay(character());
     $("#character-creation").toggle();
     $("#battle-display").toggle();
+    startBattle(character);
   });
 });
