@@ -19,3 +19,22 @@ export const getTroll = () => {
   troll(addAbility(attack()));
   return troll;
 };
+
+export const getOrc = () => {
+  const orc = storeState();
+  orc(setState("name")("orc"));
+  orc(setState("health")(50));
+  orc(setState("strength")(50));
+  orc(setState("toughness")(50));
+  orc(setState("intelligence")(30));
+  orc(addAbility(attack()));
+  return orc;
+};
+
+export const getRandomEnemy = () => {
+  const enemyFunctionArray = [getOrc(), getTroll()];
+  const enemyIndex = Math.floor(Math.random() * (enemyFunctionArray.length));
+  return enemyFunctionArray[enemyIndex];
+};
+
+//const enemy = getRandomEnemy();

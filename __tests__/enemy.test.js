@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-import { getTroll } from './../src/enemies';
+import { getTroll, getRandomEnemy } from './../src/enemies';
 import { takeDamage, lifeDetector, healDamage } from './../src/health';
 
 describe("enemies", ()=>{
@@ -33,5 +33,11 @@ describe("enemies", ()=>{
     newEnemy2(takeDamage(99));
     newEnemy2(healDamage(49));
     expect(newEnemy2().health).toBe(50);
+  });
+
+  test("should be able to get a random enemy", ()=>{
+    const randomEnemy = getRandomEnemy();
+    console.log(randomEnemy);
+    expect(randomEnemy().name).toBeDefined();
   });
 });
