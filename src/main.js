@@ -3,9 +3,10 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { characterCreate } from './character';
-import { addAttribute } from './state';
+import { addAttribute, addAbility } from './state';
 import { getRandomEnemy } from './enemies';
 import { takeDamage, lifeDetector } from './health';
+import { attack } from './abilities';
 
 const updateCharacterDisplay = function(character) {
   $("#character-name").html(character.name);
@@ -27,6 +28,7 @@ const enemyTurn = function(character, enemy) {
   const damageDealt = enemy().attack();
   character(takeDamage(damageDealt));
   $('#enemy-turn-output').html(`<p>${enemy().name} did ${damageDealt} to you!</p>`);
+  updateCharacterDisplay(character());
   if (!lifeDetector(character())) {
     alert("YOU LOSE!");
     $("#character-creation").toggle();
@@ -41,11 +43,13 @@ const startBattle = function(character) {
   $('#attack-button').off();
   $('#attack-button').click(function(event) {
     event.preventDefault();
-    enemy(takeDamage(character().attack()));
-    enemyTurn(character, enemy);
+    const damageDealt = character().attack();
+    enemy(takeDamage(damageDealt));
+    updateEnemyDisplay(enemy());
     if (!lifeDetector(enemy())) {
       startBattle(character);
     }
+    enemyTurn(character, enemy);
   });
 };
 
@@ -63,6 +67,7 @@ $(document).ready(function() {
     character(addAttribute("toughness")(toughness));
     character(addAttribute("intelligence")(intelligence));
     character(addAttribute("health")(toughness));
+    character(addAbility(attack()));
   
     updateCharacterDisplay(character());
     $("#character-creation").toggle();
